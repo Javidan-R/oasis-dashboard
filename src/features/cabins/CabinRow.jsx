@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { HiPencil, HiTrash, HiSquare2Stack } from 'react-icons/hi2';
 
-import Menus from 'ui/Menus';
-import Modal from 'ui/Modal';
-import ConfirmDelete from 'ui/ConfirmDelete';
-import Table from 'ui/Table';
+import Menus from '@ui/Menus';
+import Modal from '@ui/Modal';
+import ConfirmDelete from '@ui/ConfirmDelete';
+import Table from '@ui/Table';
 
-import { formatCurrency } from 'utils/helpers';
+import { formatCurrency } from '@utils/helpers';
 import { useDeleteCabin } from './useDeleteCabin';
 import { useCreateCabin } from './useCreateCabin';
 import CreateCabinForm from './CreateCabinForm';
@@ -78,7 +78,7 @@ function CabinRow({ cabin }) {
   }
 
   return (
-    <Table.Row role='row'>
+    <TableRow>
       <Img src={image} alt={`Cabin ${name}`} />
 
       <Cabin>{name}</Cabin>
@@ -94,7 +94,7 @@ function CabinRow({ cabin }) {
       )}
 
       <Modal>
-        <Menus.Menu>
+        {/* <Menus.Menu>
           <Menus.Toggle id={cabinId} />
 
           <Menus.List id={cabinId}>
@@ -106,12 +106,11 @@ function CabinRow({ cabin }) {
               <Menus.Button icon={<HiPencil />}>Edit cabin</Menus.Button>
             </Modal.Toggle>
 
-            {/* Now it gets a bit confusing... */}
             <Modal.Toggle opens='delete'>
               <Menus.Button icon={<HiTrash />}>Delete cabin</Menus.Button>
             </Modal.Toggle>
           </Menus.List>
-        </Menus.Menu>
+        </Menus.Menu> */}
 
         {/* This needs to be OUTSIDE of the menu, which in no problem. The compound component gives us this flexibility */}
         <Modal.Window name='edit'>
@@ -140,7 +139,7 @@ function CabinRow({ cabin }) {
 
         <Link to={`/cabins/${cabinId}`}>Details &rarr;</Link>
       </div> */}
-    </Table.Row>
+    </TableRow>
   );
 }
 

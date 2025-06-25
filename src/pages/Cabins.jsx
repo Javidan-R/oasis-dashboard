@@ -1,46 +1,30 @@
-import { useEffect, useState } from 'react';
-import Row from '@ui/Row';
-import { getCabins } from '@services/apiCabins';
+import { useState } from "react";
+import CabinTable from "../features/cabins/CabinTable";
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
+import Button from "../ui/Button";
+import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
-const Cabins = () => {
-  const [cabins, setCabins] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    getCabins()
-      .then((response) => {
-        setCabins(response);
-      })
-      .catch((err) => {
-        setError('Failed to load cabins. Please try again later.');
-      });
-  }, []);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+function Cabins() {
+  const [showForm, setShowForm] = useState(false);
 
   return (
-    <Row direction="vertical">
-      {cabins.length > 0 && (
-        <ul>
-          {cabins.map((cabin) => (
-            <li key={cabin.id}>
-              <img
-                src={
-                  cabin.image ||
-                  'https://urjmjzcclfxkjxruiylk.supabase.co/storage/v1/object/public/cabin-images//cabin-001.jpg'
-                }
-                alt={cabin.description || 'Cabin'}
-                style={{ width: 120, height: 80, objectFit: 'cover' }}
-              />
-              {cabin.description}
-            </li>
-          ))}
-        </ul>
-      )}
-    </Row>
+    <>
+      <Row type="horizontal">
+        <Heading as="h1">All cabins</Heading>
+        <p>Filter / Sort</p>
+      </Row>
+
+      <Row>
+        <CabinTable />
+
+        <Button onClick={() => setShowForm((show) => !show)}>
+          Add new cabin
+        </Button>
+        {showForm && <CreateCabinForm />}
+      </Row>
+    </>
   );
-};
+}
 
 export default Cabins;
